@@ -31,11 +31,20 @@ func (a *Application) RegisterRoute(method, path string, handler func(http.Respo
 }
 
 func (a *Application) Run() {
-	fmt.Println("Server started")
+	fmt.Printf("Server started on port %s\n", a.port)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		route := a.router.FindRoute(r.Method, r.URL.Path)
-		route.HandleFunc(w, r)
+		route, exists := a.router.FindRoute(r.Method, r.URL.Path)
+
+		if !exists {
+			http.Error(w, "404 not found.", http.StatusNotFound)
+			return
+		}
+
+		err := route.HandleFunc(w, r)
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 	if err := http.ListenAndServe(a.port, nil); err != nil {
 		log.Fatal(err)

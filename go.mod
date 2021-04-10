@@ -1,3 +1,3 @@
-module github.com/zuzuleinen/gimmy
+module gimmy
 
 go 1.15

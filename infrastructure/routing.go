@@ -22,6 +22,7 @@ func (r *Router) AddRoute(route Route) {
 	r.routes[route.Method+route.Path] = route
 }
 
-func (r *Router) FindRoute(method, path string) Route {
-	return r.routes[method+path] //todo not existing
+func (r *Router) FindRoute(method, path string) (Route, bool) {
+	rt, ok := r.routes[method+path]
+	return rt, ok
 }

@@ -4,17 +4,18 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/zuzuleinen/gimmy/api"
-	"github.com/zuzuleinen/gimmy/infrastructure"
+	"gimmy/api"
+	"gimmy/infrastructure"
 	"net/http"
 	"time"
 )
 
 type Class struct {
-	ID   string
-	Name string
-	From time.Time
-	To   time.Time
+	ID       string
+	Name     string
+	Capacity int
+	From     time.Time
+	To       time.Time
 }
 
 func GetClass(w http.ResponseWriter, r *http.Request) error {
@@ -49,6 +50,9 @@ func validate(r api.CreateClassRequest) error {
 	}
 	if r.EndDate == "" {
 		return errors.New("`end_date` is required")
+	}
+	if r.Capacity <= 0 {
+		return errors.New("`capacity` should be bigger than zero")
 	}
 	return nil
 }
