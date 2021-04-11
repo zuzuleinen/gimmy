@@ -6,9 +6,10 @@ Gimmy is simple API to manage creating classes and bookings for a fictional gym 
 
 # Installation instructions
 
-* Clone the repository
-* Run the app: go run main.go
-* (Optional) Run tests with go test ./...
+```shell
+git clone git@github.com:zuzuleinen/gimmy.git
+go run main.go
+```
 
 # Notes
 
