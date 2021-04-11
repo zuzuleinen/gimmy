@@ -19,10 +19,11 @@ The server runs on port :8282. You can change the port inside main.go
 POST /classes - creates a new classes
 
 Request:
-``
+```
 {"name": "Karate", "capacity": 26, "start_date": "2021-04-30", "end_date": "2021-05-01"}
-``
+```
+
 Success response:
-``
+```
 {"id":"458c0903-c394-4a63-8289-57cc5bf59305"}
-``
+```
