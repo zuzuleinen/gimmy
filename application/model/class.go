@@ -2,7 +2,7 @@ package model
 
 import (
 	"encoding/json"
-	"gimmy/api"
+	"gimmy/application"
 	"gimmy/infrastructure"
 	"time"
 )
@@ -16,12 +16,12 @@ type Class struct {
 }
 
 func (c Class) FromTime() time.Time {
-	date, _ := time.ParseInLocation(api.DateLayout, c.StartDate, time.UTC)
+	date, _ := time.ParseInLocation(application.DateLayout, c.StartDate, time.UTC)
 	return date
 }
 
 func (c Class) ToTime() time.Time {
-	date, _ := time.ParseInLocation(api.DateLayout, c.EndDate, time.UTC)
+	date, _ := time.ParseInLocation(application.DateLayout, c.EndDate, time.UTC)
 	return date
 }
 
@@ -46,7 +46,7 @@ type DailyClass struct {
 }
 
 func (d DailyClass) Equals(date string) bool {
-	return d.Date.Format(api.DateLayout) == date
+	return d.Date.Format(application.DateLayout) == date
 }
 
 func (c Class) Key() string {
