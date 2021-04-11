@@ -6,6 +6,8 @@ Gimmy is simple API to manage creating classes and bookings for a fictional gym 
 
 # Installation instructions
 
+You should have at least Go 1.13 installed since this project uses Go modules
+
 ```shell
 git clone git@github.com:zuzuleinen/gimmy.git
 go run main.go
