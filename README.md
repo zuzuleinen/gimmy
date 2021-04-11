@@ -2,7 +2,7 @@
 
 # About
 
-Gimmy is simple API to manage creating classes and booking for a fictional gym written in Golang
+Gimmy is simple API to manage creating classes and bookings for a fictional gym written in Golang
 
 # Installation instructions
 
