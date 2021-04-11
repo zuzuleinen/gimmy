@@ -1,7 +1,6 @@
 package infrastructure
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -9,11 +8,11 @@ import (
 type Application struct {
 	router *Router
 	port   string
-	db     *DB
+	db     *DBConn
 }
 
 func NewApplication(port string) *Application {
-	db := GetDB()
+	db := DB()
 	router := NewRouter()
 	return &Application{
 		router: router,
@@ -22,16 +21,24 @@ func NewApplication(port string) *Application {
 	}
 }
 
-func (a *Application) RegisterRoute(method, path string, handler func(http.ResponseWriter, *http.Request) error) {
+func (a *Application) POST(path string, handler func(http.ResponseWriter, *http.Request) error) {
 	a.router.AddRoute(Route{
-		Method:     method,
+		Method:     http.MethodPost,
+		Path:       path,
+		HandleFunc: handler,
+	})
+}
+
+func (a *Application) GET(path string, handler func(http.ResponseWriter, *http.Request) error) {
+	a.router.AddRoute(Route{
+		Method:     http.MethodGet,
 		Path:       path,
 		HandleFunc: handler,
 	})
 }
 
 func (a *Application) Run() {
-	fmt.Printf("Server started on port %s\n", a.port)
+	log.Printf("Server started on port %s\n", a.port)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		route, exists := a.router.FindRoute(r.Method, r.URL.Path)

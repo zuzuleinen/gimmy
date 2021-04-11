@@ -1,14 +1,38 @@
 package infrastructure
 
-type DB struct {
-	Counter int
+import (
+	"github.com/google/uuid"
+)
+
+type DBConn struct {
+	Tables map[string]Rows
 }
 
-var d *DB
+type Rows map[string]Model
 
-func GetDB() *DB {
+var d *DBConn
+
+type Model interface {
+	Key() string
+	Data() []byte
+}
+
+func DB() *DBConn {
 	if d == nil {
-		d = &DB{}
+		d = &DBConn{}
+		d.Tables = make(map[string]Rows)
 	}
 	return d
+}
+
+func (d *DBConn) Save(tableName string, c Model) {
+	_, ok := d.Tables[tableName]
+	if !ok {
+		d.Tables[tableName] = make(map[string]Model)
+	}
+	d.Tables[tableName][c.Key()] = c
+}
+
+func GenerateID() string {
+	return uuid.New().String()
 }
