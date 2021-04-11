@@ -18,7 +18,7 @@ The server runs on port :8282. You can change the port inside main.go
 
 # API
 
-POST /classes - creates a new classes
+**POST** /classes - creates a new classes
 
 Request:
 
@@ -32,7 +32,7 @@ Success response:
 {"id":"458c0903-c394-4a63-8289-57cc5bf59305"}
 ```
 
-GET /classes
+**GET** /classes
 
 Sample response:
 
